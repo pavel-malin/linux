@@ -1,0 +1,17 @@
+#!/bin/bash
+# (@)/my_backup
+# A very simple backup scipt
+#
+
+# Change the TAPE device to match your system.
+# Check /var/log/messages to determine your tape device.
+TAPE=/dev/rft0
+
+# Rewind the tape device $TAPE
+mt $TAPE rew
+# Get a list of home directories
+HOMES=`grep /home /etc/passwd | cut -f6 -d':'`
+# Back up the data in those directories 
+tar cvf $TAPE $HOME
+# Rewind and eject the tape.
+Mt $TAPE rewoffl
